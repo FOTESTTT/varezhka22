@@ -1,0 +1,250 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    color: #222;
+    background: linear-gradient(180deg, #87CEEB 0%, #F5F5DC 100%);
+    min-height: 100vh;
+}
+
+/* Шапка */
+.header {
+    background: rgba(255, 255, 255, 0.98);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 2px 30px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+}
+
+.nav {
+    max-width: 1200px;
+    margin: auto;
+    padding: 18px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-weight: bold;
+    font-size: 28px;
+    color: #0077ff;
+    text-decoration: none;
+    background: linear-gradient(45deg, #0077ff, #00a8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.menu {
+    list-style: none;
+    display: flex;
+    gap: 35px;
+}
+
+.menu a {
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    padding: 8px 16px;
+    border-radius: 25px;
+}
+
+.menu a:hover {
+    color: #0077ff;
+    background: rgba(0, 119, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Герой-секция */
+.hero {
+    height: 100vh;
+    background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), 
+                url('photo/logo.jpg') center/cover no-repeat;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+    position: relative;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 2;
+    max-width: 800px;
+    padding: 0 20px;
+}
+
+.hero h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 10px rgba(0,0,0,0.5);
+    animation: fadeInUp 1s ease;
+}
+
+.hero p {
+    font-size: 1.4rem;
+    margin-bottom: 35px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+    animation: fadeInUp 1s ease 0.2s both;
+}
+
+.btn {
+    display: inline-block;
+    background: linear-gradient(45deg, #0077ff, #00a8ff);
+    color: #fff;
+    padding: 15px 40px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 20px rgba(0, 119, 255, 0.3);
+    animation: fadeInUp 1s ease 0.4s both;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 119, 255, 0.4);
+    background: linear-gradient(45deg, #005fcc, #0077ff);
+}
+
+/* Секции */
+section {
+    padding: 120px 20px;
+    max-width: 1200px;
+    margin: auto;
+    opacity: 0;
+    transform: translateY(50px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+section.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.about, .contacts {
+    text-align: center;
+    background: rgba(255, 255, 255, 0.9);
+    margin: 40px auto;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.about h2, .contacts h2 {
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+    color: #0077ff;
+    background: linear-gradient(45deg, #0077ff, #00a8ff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.about p {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.contacts p {
+    font-size: 1.2rem;
+    margin: 15px 0;
+    color: #666;
+}
+
+/* Подвал */
+.footer {
+    background: linear-gradient(45deg, #0077ff, #00a8ff);
+    color: #fff;
+    text-align: center;
+    padding: 30px 20px;
+    width: 100%;
+    margin-top: 60px;
+}
+
+/* Анимации */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .hero h1 {
+        font-size: 2.5rem;
+    }
+    
+    .hero p {
+        font-size: 1.1rem;
+    }
+    
+    .menu {
+        gap: 20px;
+    }
+    
+    .menu a {
+        padding: 6px 12px;
+        font-size: 0.9rem;
+    }
+    
+    section {
+        padding: 80px 20px;
+    }
+    
+    .about h2, .contacts h2 {
+        font-size: 2rem;
+    }
+    
+    .about p {
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo {
+        font-size: 24px;
+    }
+    
+    .hero h1 {
+        font-size: 2rem;
+    }
+    
+    .hero p {
+        font-size: 1rem;
+    }
+    
+    .btn {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+    
+    .menu {
+        gap: 15px;
+    }
+    
+    .menu a {
+        padding: 5px 10px;
+        font-size: 0.8rem;
+    }
+}

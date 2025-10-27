@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>База отдыха "Варежка"</title>
+    <link rel="stylesheet" href="index.css" />
+</head>
+<body>
+  <header class="header">
+    <nav class="nav">
+      <a href="#home" class="logo">Варежка</a>
+      <ul class="menu">
+        <li><a href="gallery.html">Галерея</a></li>
+        <li><a href="#contacts">Контакты</a></li>
+        <li><a href="map.html">Карта</a></li>
+        <li><a href="info.html">Цены</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <section id="home" class="hero">
+    <div class="hero-content">
+      <h1>Добро пожаловать на пляж!</h1>
+      <p>Аренда лодок, катамаранов и отдых у воды</p>
+      <a href="gallery.html" class="btn">Смотреть фото</a>
+    </div>
+  </section>
+
+  <section id="about" class="about">
+    <h2>О нас</h2>
+    <p>Место семейного отдыха❤️</p>
+  </section>
+  <section id="contacts" class="contacts">
+    <h2>Контакты</h2>
+    <p>📍 Адрес: р.п. Южный, ул. Зоотехническая 29в</p>
+    <p>📞 Телефон: +7 (963) 509-02-76</p>
+  </section>
+
+  <footer class="footer">
+    <p>© 2025 Варежка. Все права защищены.</p>
+  </footer>
+
+</body>
+<script>
+const sections = document.querySelectorAll("section");
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add("visible");
+    }
+  });
+}, { threshold: 0.2 });
+
+sections.forEach(sec => observer.observe(sec));
+</script>
+</html>

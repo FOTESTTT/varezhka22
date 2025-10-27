@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Карта - Варежка</title>
+    <link rel="stylesheet" href="map.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="header">
+            <nav class="nav">
+                <a href="index.html" class="logo">Варежка</a>
+                <ul class="menu">
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="map.html">Карта</a></li>
+                    <li><a href="info.html">Цены</a></li>
+                    <li><a href="index.html#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <section class="map-section">
+            <h1>Как нас найти</h1>
+            <div class="map-container">
+                <!-- Яндекс Карта -->
+                <div id="map" style="width: 100%; height: 500px; border-radius: 15px;"></div>
+            </div>
+            
+            <div class="address-info">
+                <h2>Адрес</h2>
+                <p>📍 р.п. Южный, ул. Зоотехническая 29в</p>
+                <p>📞 Телефон: +7 (963) 509-02-76</p>
+                <p>⏰ Время работы: 10:00 - 20:30</p>
+            </div>
+        </section>
+
+        <footer class="footer">
+            <p>© 2025 Варежка. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <!-- Подключаем Яндекс Карты -->
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=133e3df6-21ac-4ec5-a1af-2dd4bb6e2386&lang=ru_RU" type="text/javascript"></script>
+    <script>
+    // Инициализация карты
+    ymaps.ready(init);
+
+    function init() {
+        // Создаем карту
+        var myMap = new ymaps.Map("map", {
+            center: [53.255068, 83.70839], // ваши координаты
+            zoom: 16
+        });
+
+        // Добавляем метку
+        var myPlacemark = new ymaps.Placemark([53.255068, 83.70839], {
+            hintContent: 'База отдыха "Варежка"',
+            balloonContent: 'База отдыха "Варежка"<br>р.п. Южный, ул. Зоотехническая 29в<br>⏰ 10:00 - 20:30'
+        }, {
+            iconLayout: 'default#image',
+            iconImageHref: 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iNDIiIHZpZXdCb3g9IjAgMCAzMCA0MiIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTE1IDBDNi43MTU3MyAwIDAgNi43MTU3MyAwIDE1QzAgMjUuNSA3LjUgMzUgMTUgNDJDMjIuNSAzNSAzMCAyNS41IDMwIDE1QzMwIDYuNzE1NzMgMjMuMjg0MyAwIDE1IDBaIiBmaWxsPSIjMDA3N2ZmIi8+CjxjaXJjbGUgY3g9IjE1IiBjeT0iMTUiIHI9IjciIGZpbGw9IndoaXRlIi8+Cjwvc3ZnPgo=',
+            iconImageSize: [30, 42],
+            iconImageOffset: [-15, -42]
+        });
+
+        myMap.geoObjects.add(myPlacemark);
+        
+        // Открываем балун при клике на метку
+        myPlacemark.balloon.open();
+    }
+    </script>
+</body>
+</html>

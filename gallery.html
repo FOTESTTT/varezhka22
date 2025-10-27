@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Галерея - Варежка</title>
+  <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <div class="page-wrapper">
+        <header class="header">
+            <nav class="nav">
+                <a href="index.html" class="logo">Варежка</a>
+                <ul class="menu">
+                    <li><a href="gallery.html">Галерея</a></li>
+                    <li><a href="map.html">Карта</a></li>
+                    <li><a href="info.html">Цены</a></li>
+                    <li><a href="index.html#contacts">Контакты</a></li>
+                </ul>
+            </nav>
+        </header>
+        
+        <section class="gallery">
+            <div class="gallery-grid">
+              <img src="photo/image 3.png" alt="Пляж">
+              <img src="photo/fon.png" alt="Катамараны">
+              <img src="photo/image 1.png" alt="Берег">
+              <img src="photo/image 5.png" alt="Отдых на пляже">
+              <img src="photo/image 7.png" alt="Водные развлечения">
+              <img src="photo/lodka.jpg" alt="Лодка">
+              <img src="photo/gorka.jpg" alt="Горка">
+              <img src="photo/spasatel.jpg" alt="Спасатель">
+              
+              <!-- Видео в галерее -->
+              <div class="video-item" onclick="openVideo('photo/video1.mp4')">
+                <video>
+                  <source src="photo/video1.mp4" type="video/mp4">
+                </video>
+                <div class="video-play-icon">▶</div>
+                <div class="video-label">Видео1</div>
+              </div>
+              
+              <div class="video-item" onclick="openVideo('photo/video2.mp4')">
+                <video>
+                  <source src="photo/video2.mp4" type="video/mp4">
+                </video>
+                <div class="video-play-icon">▶</div>
+                <div class="video-label">Видео2</div>
+              </div>
+
+            <div class="video-item" onclick="openVideo('photo/video3.mp4')">
+                <video>
+                  <source src="photo/video3.mp4" type="video/mp4">
+                </video>
+                <div class="video-play-icon">▶</div>
+                <div class="video-label">Видео3</div>
+              </div>
+
+              <div class="video-item" onclick="openVideo('photo/video4.mp4')">
+                <video>
+                  <source src="photo/video4.mp4" type="video/mp4">
+                </video>
+                <div class="video-play-icon">▶</div>
+                <div class="video-label">Видео3</div>
+              </div>
+            </div> <!-- Закрываем gallery-grid -->
+        </section>
+        
+        <footer class="footer">
+            <p>© 2025 Варежка. Все права защищены.</p>
+        </footer>
+    </div>
+
+    <!-- Модальное окно для фото -->
+    <div id="lightbox" class="lightbox">
+        <span class="close">&times;</span>
+        <div class="lightbox-content">
+            <img class="lightbox-img" src="" alt="">
+        </div>
+    </div>
+
+    <!-- Модальное окно для видео -->
+    <div id="videobox" class="videobox">
+        <span class="close-video">&times;</span>
+        <div class="video-content">
+            <video controls id="fullscreen-video">
+                <source src="" type="video/mp4">
+                Ваш браузер не поддерживает видео
+            </video>
+        </div>
+    </div>
+
+    <script>
+        const lightbox = document.getElementById("lightbox");
+        const lightboxImg = document.querySelector(".lightbox-img");
+        const closeBtn = document.querySelector(".close");
+
+        const videobox = document.getElementById("videobox");
+        const fullscreenVideo = document.getElementById("fullscreen-video");
+        const closeVideoBtn = document.querySelector(".close-video");
+
+        // Обработчик для фото
+        document.querySelectorAll(".gallery-grid img").forEach(img => {
+            img.addEventListener("click", () => {
+                lightbox.style.display = "flex";
+                lightboxImg.src = img.src;
+                lightboxImg.alt = img.alt;
+                document.body.style.overflow = "hidden";
+            });
+        });
+
+        // Функция для открытия видео
+        function openVideo(videoSrc) {
+            videobox.style.display = "flex";
+            fullscreenVideo.src = videoSrc;
+            document.body.style.overflow = "hidden";
+            
+            // Автовоспроизведение при открытии
+            fullscreenVideo.play().catch(e => {
+                console.log("Автовоспроизведение заблокировано");
+            });
+        }
+
+        // Закрытие фото
+        function closeLightbox() {
+            lightbox.style.display = "none";
+            document.body.style.overflow = "auto";
+        }
+
+        // Закрытие видео
+        function closeVideo() {
+            videobox.style.display = "none";
+            fullscreenVideo.pause();
+            fullscreenVideo.currentTime = 0;
+            document.body.style.overflow = "auto";
+        }
+
+        closeBtn.addEventListener("click", closeLightbox);
+        closeVideoBtn.addEventListener("click", closeVideo);
+
+        // Закрытие по клику на фон
+        lightbox.addEventListener("click", (e) => {
+            if (e.target === lightbox) closeLightbox();
+        });
+
+        videobox.addEventListener("click", (e) => {
+            if (e.target === videobox) closeVideo();
+        });
+
+        // Закрытие по ESC
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeLightbox();
+                closeVideo();
+            }
+        });
+    </script>
+</body>
+</html>
