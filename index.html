@@ -1,58 +1,79 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>База отдыха "Варежка"</title>
-    <link rel="stylesheet" href="index.css" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>База отдыха «Варежка»</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="index.css">
 </head>
 <body>
-  <header class="header">
-    <nav class="nav">
-      <a href="#home" class="logo">Варежка</a>
-      <ul class="menu">
-        <li><a href="gallery.html">Галерея</a></li>
-        <li><a href="#contacts">Контакты</a></li>
-        <li><a href="map.html">Карта</a></li>
-        <li><a href="info.html">Цены</a></li>
-      </ul>
-    </nav>
-  </header>
-  
-  <section id="home" class="hero">
-    <div class="hero-content">
-      <h1>Добро пожаловать на пляж!</h1>
-      <p>Аренда лодок, катамаранов и отдых у воды</p>
-      <a href="gallery.html" class="btn">Смотреть фото</a>
-    </div>
-  </section>
+  <div class="page">
+    <header class="header">
+      <nav class="nav">
+        <a href="index.html" class="logo"><span class="logo-mark">В</span><span data-site-name>Варежка</span></a>
+        <ul class="menu">
+          <li><a class="active" href="index.html">Главная</a></li>
+          <li><a href="catalog.html">Каталог</a></li>
+          <li><a href="gallery.html">Галерея</a></li>
+          <li><a href="contacts.html">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
 
-  <section id="about" class="about">
-    <h2>О нас</h2>
-    <p>Место семейного отдыха❤️</p>
-  </section>
-  <section id="contacts" class="contacts">
-    <h2>Контакты</h2>
-    <p>📍 Адрес: р.п. Южный, ул. Зоотехническая 29в</p>
-    <p>📞 Телефон: +7 (963) 509-02-76</p>
-  </section>
+    <main class="main">
+      <section class="hero" id="home">
+        <div class="hero-copy">
+          <p class="eyebrow" data-site-title>База отдыха «Варежка»</p>
+          <h1 data-site-tagline>Пляж, прокат лодок и спокойный отдых у воды</h1>
+          <p data-site-description>Семейная база отдыха в р.п. Южный: пляжная зона, водные развлечения, кафе и уютные места для отдыха.</p>
+          <div class="hero-actions">
+            <a class="button" href="catalog.html">Смотреть каталог</a>
+            <a class="button secondary" href="gallery.html">Галерея</a>
+          </div>
+        </div>
+        <div class="hero-media" aria-label="Логотип базы отдыха">
+          <img src="photo/logo.png" alt="База отдыха Варежка">
+        </div>
+      </section>
 
-  <footer class="footer">
-    <p>© 2025 Варежка. Все права защищены.</p>
-  </footer>
+      <section class="section promo-section">
+        <div class="promo-head">
+          <h2 class="section-title">Акции и предложения</h2>
+          <div class="promo-controls" aria-label="Управление слайдером">
+            <button class="slider-button" type="button" data-slider-prev aria-label="Предыдущее предложение">‹</button>
+            <button class="slider-button" type="button" data-slider-next aria-label="Следующее предложение">›</button>
+          </div>
+        </div>
+        <div class="promo-slider card" id="promoSlider"></div>
+      </section>
 
+      <section class="section">
+        <h2 class="section-title">Для летнего дня у воды</h2>
+        <p class="section-lead">Собрали на сайте главное: предложения, фотографии, адрес, график работы, меню кафе и контакты.</p>
+        <div class="features" id="features"></div>
+      </section>
+
+      <section class="section contact-band" id="contacts">
+        <div>
+          <h2 class="section-title">Контакты</h2>
+          <p class="section-lead">Перед поездкой можно уточнить наличие проката, график и любые детали отдыха.</p>
+        </div>
+        <div class="contact-card card">
+          <p><strong>Адрес:</strong> <span data-site-address></span></p>
+          <p><strong>Телефон:</strong> <a data-site-phone-link><span data-site-phone></span></a></p>
+          <p><strong>График:</strong> ежедневно, <span data-site-hours></span></p>
+          <a class="button" href="contacts.html">Открыть контакты</a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p data-site-copyright></p>
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="index.js"></script>
 </body>
-<script>
-const sections = document.querySelectorAll("section");
-
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      entry.target.classList.add("visible");
-    }
-  });
-}, { threshold: 0.2 });
-
-sections.forEach(sec => observer.observe(sec));
-</script>
 </html>

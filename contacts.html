@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Контакты - Варежка</title>
+  <link rel="stylesheet" href="common.css">
+  <link rel="stylesheet" href="contacts.css">
+</head>
+<body>
+  <div class="page">
+    <header class="header">
+      <nav class="nav">
+        <a href="index.html" class="logo"><span class="logo-mark">В</span><span data-site-name>Варежка</span></a>
+        <ul class="menu">
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="catalog.html">Каталог</a></li>
+          <li><a href="gallery.html">Галерея</a></li>
+          <li><a class="active" href="contacts.html">Контакты</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main class="main">
+      <section class="section">
+        <h1 class="section-title">Контакты</h1>
+        <p class="section-lead">Адрес, телефон, график работы и интерактивная Яндекс-карта.</p>
+
+        <div class="map-layout">
+          <div class="map-container card">
+            <div id="map"></div>
+          </div>
+
+          <aside class="address-card card">
+            <h2 data-site-title></h2>
+            <p><strong>Адрес:</strong> <span data-site-address></span></p>
+            <p><strong>Телефон:</strong> <a data-site-phone-link><span data-site-phone></span></a></p>
+            <p><strong>График:</strong> <span data-site-hours></span></p>
+            <a class="button" id="routeLink" target="_blank" rel="noreferrer">Построить маршрут</a>
+          </aside>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <p data-site-copyright></p>
+    </footer>
+  </div>
+
+  <script src="data.js"></script>
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=133e3df6-21ac-4ec5-a1af-2dd4bb6e2386&lang=ru_RU"></script>
+  <script src="contacts.js"></script>
+</body>
+</html>
