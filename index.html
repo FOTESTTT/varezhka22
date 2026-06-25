@@ -11,7 +11,7 @@
   <div class="page">
     <header class="header">
       <nav class="nav">
-        <a href="index.html" class="logo"><span class="logo-mark">В</span><span data-site-name>Варежка</span></a>
+        <a href="index.html" class="logo"><span class="logo-mark"><img src="photo/logo-header.png" alt=""></span><span data-site-name>Варежка</span></a>
         <ul class="menu">
           <li><a class="active" href="index.html">Главная</a></li>
           <li><a href="catalog.html">Каталог</a></li>
@@ -32,8 +32,18 @@
             <a class="button secondary" href="gallery.html">Галерея</a>
           </div>
         </div>
-        <div class="hero-media" aria-label="Логотип базы отдыха">
-          <img src="photo/logo.png" alt="База отдыха Варежка">
+        <div class="hero-media" aria-label="Видео базы отдыха">
+          <video
+            class="hero-video"
+            data-src="photo/18874658130528.mp4"
+            poster="photo/fon.png"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="none"
+          ></video>
+          <button class="video-sound-button" type="button" data-video-sound aria-label="Включить звук">Звук выкл.</button>
         </div>
       </section>
 

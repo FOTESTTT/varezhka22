@@ -1,4 +1,6 @@
 const data = getSiteData();
+const heroVideo = document.querySelector(".hero-video");
+const soundButton = document.querySelector("[data-video-sound]");
 
 document.title = data.site.title;
 
@@ -13,6 +15,51 @@ document.querySelector("[data-site-phone]").textContent = data.site.phone;
 document.querySelector("[data-site-phone-link]").href = `tel:${data.site.phone.replace(/[^\d+]/g, "")}`;
 document.querySelector("[data-site-hours]").textContent = data.site.hours;
 document.querySelector("[data-site-copyright]").textContent = data.site.copyright;
+
+function loadHeroVideo() {
+  if (!heroVideo) return;
+
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if (connection?.saveData) return;
+
+  const source = heroVideo.dataset.src;
+  if (!source || heroVideo.src) return;
+
+  heroVideo.src = source;
+  heroVideo.load();
+  heroVideo.play().catch(() => {});
+}
+
+function updateSoundButton() {
+  if (!heroVideo || !soundButton) return;
+
+  soundButton.textContent = heroVideo.muted ? "Звук выкл." : "Звук вкл.";
+  soundButton.setAttribute("aria-label", heroVideo.muted ? "Включить звук" : "Выключить звук");
+}
+
+if (heroVideo && soundButton) {
+  soundButton.addEventListener("click", () => {
+    heroVideo.muted = !heroVideo.muted;
+    heroVideo.play().catch(() => {});
+    updateSoundButton();
+  });
+
+  heroVideo.addEventListener("pause", () => {
+    if (!document.hidden) {
+      heroVideo.play().catch(() => {});
+    }
+  });
+
+  updateSoundButton();
+  window.addEventListener("load", () => {
+    if ("requestIdleCallback" in window) {
+      window.requestIdleCallback(loadHeroVideo, { timeout: 1800 });
+      return;
+    }
+
+    window.setTimeout(loadHeroVideo, 600);
+  });
+}
 
 const features = document.querySelector("#features");
 features.innerHTML = data.features
