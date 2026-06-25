@@ -1,6 +1,7 @@
 const data = getSiteData();
 const heroVideo = document.querySelector(".hero-video");
 const soundButton = document.querySelector("[data-video-sound]");
+let heroVideoLoaded = false;
 
 document.title = data.site.title;
 
@@ -19,26 +20,45 @@ document.querySelector("[data-site-copyright]").textContent = data.site.copyrigh
 function loadHeroVideo() {
   if (!heroVideo) return;
 
-  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
-  if (connection?.saveData) return;
-
   const source = heroVideo.dataset.src;
   if (!source || heroVideo.src) return;
 
   heroVideo.src = source;
   heroVideo.load();
+  heroVideoLoaded = true;
   heroVideo.play().catch(() => {});
+  updateSoundButton();
 }
 
 function updateSoundButton() {
   if (!heroVideo || !soundButton) return;
 
+  if (!heroVideoLoaded && shouldDeferHeroVideo()) {
+    soundButton.textContent = "Включить видео";
+    soundButton.setAttribute("aria-label", "Включить видео");
+    return;
+  }
+
   soundButton.textContent = heroVideo.muted ? "Звук выкл." : "Звук вкл.";
   soundButton.setAttribute("aria-label", heroVideo.muted ? "Включить звук" : "Выключить звук");
 }
 
+function shouldDeferHeroVideo() {
+  const connection = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  const isSmallScreen = window.matchMedia("(max-width: 760px)").matches;
+  const isAndroid = /Android/i.test(navigator.userAgent);
+  const isSlowConnection = ["slow-2g", "2g", "3g"].includes(connection?.effectiveType);
+
+  return Boolean(connection?.saveData || isSlowConnection || isSmallScreen || isAndroid);
+}
+
 if (heroVideo && soundButton) {
   soundButton.addEventListener("click", () => {
+    if (!heroVideoLoaded) {
+      loadHeroVideo();
+      return;
+    }
+
     heroVideo.muted = !heroVideo.muted;
     heroVideo.play().catch(() => {});
     updateSoundButton();
@@ -52,6 +72,8 @@ if (heroVideo && soundButton) {
 
   updateSoundButton();
   window.addEventListener("load", () => {
+    if (shouldDeferHeroVideo()) return;
+
     if ("requestIdleCallback" in window) {
       window.requestIdleCallback(loadHeroVideo, { timeout: 1800 });
       return;
@@ -87,7 +109,7 @@ function renderPromotions() {
             <h3>${escapeHtml(promo.title)}</h3>
             <p>${escapeHtml(promo.text)}</p>
           </div>
-          <img src="${escapeHtml(promo.image)}" alt="${escapeHtml(promo.title)}">
+          <img src="${escapeHtml(promo.image)}" alt="${escapeHtml(promo.title)}" loading="lazy" decoding="async">
         </article>
       `
     )
