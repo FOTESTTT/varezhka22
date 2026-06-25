@@ -30,17 +30,17 @@ const VAREZHKA_DEFAULT_DATA = {
     {
       title: "Летний день у воды",
       text: "Пляжная зона, шезлонги и спокойный отдых для всей семьи.",
-      image: "photo/image 3.png"
+      image: "photo/promo-day.jpg"
     },
     {
       title: "Прокат на воде",
       text: "Катамараны и SUP-борды для активного отдыха на свежем воздухе.",
-      image: "photo/fon.png"
+      image: "photo/promo-rent.jpg"
     },
     {
       title: "Вечерний билет",
       text: "Отдых после 18:00 по отдельной цене для всех гостей.",
-      image: "photo/image 1.png"
+      image: "photo/promo-evening.jpg"
     }
   ],
   menu: [
@@ -126,6 +126,10 @@ function mergeSiteData(savedData) {
 }
 
 function getSiteData() {
+  if (window.VAREZHKA_READ_API_ON_LOAD !== true) {
+    return cloneDefaultData();
+  }
+
   const apiData = getApiDataSync();
   if (apiData) return apiData;
 

@@ -2,6 +2,11 @@ const data = getSiteData();
 const heroVideo = document.querySelector(".hero-video");
 const soundButton = document.querySelector("[data-video-sound]");
 let heroVideoLoaded = false;
+const PROMO_IMAGE_OVERRIDES = {
+  "photo/image 3.png": "photo/promo-day.jpg",
+  "photo/fon.png": "photo/promo-rent.jpg",
+  "photo/image 1.png": "photo/promo-evening.jpg"
+};
 
 document.title = data.site.title;
 
@@ -98,6 +103,10 @@ features.innerHTML = data.features
 const promoSlider = document.querySelector("#promoSlider");
 let activePromoIndex = 0;
 
+function getPromoImage(image) {
+  return PROMO_IMAGE_OVERRIDES[image] || image;
+}
+
 function renderPromotions() {
   if (!promoSlider || !data.promotions?.length) return;
 
@@ -109,16 +118,22 @@ function renderPromotions() {
             <h3>${escapeHtml(promo.title)}</h3>
             <p>${escapeHtml(promo.text)}</p>
           </div>
-          <img src="${escapeHtml(promo.image)}" alt="${escapeHtml(promo.title)}" loading="lazy" decoding="async">
+          <img src="${escapeHtml(getPromoImage(promo.image))}" alt="${escapeHtml(promo.title)}" loading="${index === 0 ? "eager" : "lazy"}" decoding="async">
         </article>
       `
     )
     .join("");
 }
 
+function updatePromoSlides() {
+  promoSlider?.querySelectorAll(".promo-slide").forEach((slide, index) => {
+    slide.classList.toggle("active", index === activePromoIndex);
+  });
+}
+
 function showPromo(nextIndex) {
   activePromoIndex = (nextIndex + data.promotions.length) % data.promotions.length;
-  renderPromotions();
+  updatePromoSlides();
 }
 
 document.querySelector("[data-slider-prev]")?.addEventListener("click", () => showPromo(activePromoIndex - 1));
@@ -126,5 +141,7 @@ document.querySelector("[data-slider-next]")?.addEventListener("click", () => sh
 
 if (data.promotions?.length) {
   renderPromotions();
-  window.setInterval(() => showPromo(activePromoIndex + 1), 5000);
+  window.setInterval(() => {
+    if (!document.hidden) showPromo(activePromoIndex + 1);
+  }, 5000);
 }
